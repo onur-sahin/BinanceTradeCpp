@@ -26,12 +26,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_BINARY_DIR}/Debug/${PROJECT_V
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Release/${PROJECT_VERSION}/bin)
 
 set(CMAKE_PREFIX_PATH "/home/adam/Qt/6.7.3/gcc_64/lib/cmake/")
-set(CMAKE_PREFIX_PATH "home/adam/Qt/6.7.3/gcc_64/")
-set(CMAKE_PREFIX_PATH "home/adam/Qt/")
-set(CMAKE_PREFIX_PATH "home/adam/Qt/Tools/")
-set(CMAKE_PREFIX_PATH "home/adam/Qt/Tools/QtDesignStudio/")
-set(CMAKE_PREFIX_PATH "home/adam/Qt/Tools/QtDesignStudio/bin/")
-
 
 
 
@@ -87,6 +81,11 @@ set(PROJECT_SOURCES
     src/viewmodel/CreateModelVM.cpp
     src/coordinator/CreateModelCoord.cpp
 
+    src/view/PullDataWidget.cpp
+    src/model/PullDataMdl.cpp
+    src/viewmodel/PullDataVM.cpp
+    src/coordinator/PullDataCoord.cpp
+
 )
 
 set(PROJECT_HEADERS
@@ -125,6 +124,12 @@ set(PROJECT_HEADERS
     include/model/CreateModelMdl.hpp
     include/viewmodel/CreateModelVM.hpp
     include/coordinator/CreateModelCoord.hpp
+
+
+    include/view/PullDataWidget.hpp
+    include/model/PullDataMdl.hpp
+    include/viewmodel/PullDataVM.hpp
+    include/coordinator/PullDataCoord.hpp
 )
 
 set(PROJECT_UI_FILES
@@ -133,6 +138,7 @@ set(PROJECT_UI_FILES
     src/view/ui/DatabaseLoginWindow.ui
     src/view/ui/DBLoginDialog.ui
     src/view/ui/CreateModelDialog.ui
+    src/view/ui/PullDataWidget.ui
 )
 
 
@@ -165,6 +171,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
        
         icons.qrc
+        
+
 
     )
 # Define target properties for Android with Qt 6 as:

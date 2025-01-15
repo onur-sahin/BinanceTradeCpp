@@ -7,6 +7,7 @@ class MainVw;
 class MainVM;
 
 class CreateModelCoord;
+class PullDataCoord;
 
 class MainCoord : public QObject{
 
@@ -30,7 +31,9 @@ private:
     MainVw    *m_view;
     MainVM    *m_viewmodel;
 
-    CreateModelCoord * m_createModelCoord;
+    CreateModelCoord *m_createModelCoord;
+
+    std::vector<PullDataCoord*> m_pullDataCoords;
 
 
 };

@@ -15,7 +15,8 @@
         "memory": "cpp",
         "optional": "cpp",
         "sstream": "cpp",
-        "qmap": "cpp"
+        "qmap": "cpp",
+        "qvariantmap": "cpp"
     },
     "sqltools.connections": [
         {

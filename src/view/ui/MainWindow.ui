@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1084</width>
-    <height>821</height>
+    <width>1223</width>
+    <height>828</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,6 +36,13 @@
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_thrd_count">
+      <property name="text">
+       <string>Active Thread Count:None</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QScrollArea" name="scrollArea">
       <property name="widgetResizable">
@@ -46,8 +53,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1043</width>
-         <height>838</height>
+         <width>1203</width>
+         <height>738</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -79,6 +86,19 @@
               <string>Management</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="5">
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item row="0" column="4">
                <widget class="QScrollArea" name="scrollArea_2">
                 <property name="widgetResizable">
@@ -89,15 +109,15 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>229</width>
-                   <height>669</height>
+                   <width>274</width>
+                   <height>590</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_5">
-                  <item row="3" column="0">
-                   <widget class="QPushButton" name="btn_select_model">
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_selected_model">
                     <property name="text">
-                     <string>Select</string>
+                     <string>Selected Models:</string>
                     </property>
                    </widget>
                   </item>
@@ -108,20 +128,6 @@
                       <horstretch>0</horstretch>
                       <verstretch>8</verstretch>
                      </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QPushButton" name="btn_delete_model">
-                    <property name="text">
-                     <string>Delete Model</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_selected_model">
-                    <property name="text">
-                     <string>Selected Models:</string>
                     </property>
                    </widget>
                   </item>
@@ -142,6 +148,20 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="btn_select_model">
+                    <property name="text">
+                     <string>Select</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QPushButton" name="btn_delete_model">
+                    <property name="text">
+                     <string>Delete Model</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </widget>
@@ -156,8 +176,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>229</width>
-                   <height>669</height>
+                   <width>274</width>
+                   <height>590</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_6">
@@ -165,6 +185,33 @@
                    <widget class="QPushButton" name="btn_add_account">
                     <property name="text">
                      <string>Add Account</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QListWidget" name="lw_selected_accounts">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>4</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QListWidget" name="lw_accounts">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>8</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QPushButton" name="btn_del_account">
+                    <property name="text">
+                     <string>Delete Account</string>
                     </property>
                    </widget>
                   </item>
@@ -182,53 +229,22 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="0">
-                   <widget class="QPushButton" name="btn_del_account">
-                    <property name="text">
-                     <string>Delete Account</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QListWidget" name="lw_accounts">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>8</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QListWidget" name="lw_selected_accounts">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>4</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </widget>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QScrollArea" name="scrollArea_info">
-                <property name="widgetResizable">
-                 <bool>true</bool>
+              <item row="0" column="3">
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
                 </property>
-                <widget class="QWidget" name="widget_info">
-                 <property name="geometry">
-                  <rect>
-                   <x>0</x>
-                   <y>0</y>
-                   <width>83</width>
-                   <height>669</height>
-                  </rect>
-                 </property>
-                </widget>
-               </widget>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item row="0" column="6">
                <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -461,11 +477,22 @@
                     </layout>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QPushButton" name="btn_start_train">
-                     <property name="text">
-                      <string>Start Train</string>
-                     </property>
-                    </widget>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <item>
+                      <widget class="QPushButton" name="btn_start_train">
+                       <property name="text">
+                        <string>Start Train (pull data)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_pull_data">
+                       <property name="text">
+                        <string>Pull Data</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </widget>
@@ -673,31 +700,27 @@
                 </property>
                </spacer>
               </item>
-              <item row="0" column="5">
-               <spacer name="verticalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Vertical</enum>
+              <item row="0" column="0">
+               <widget class="QScrollArea" name="scrollArea_info">
+                <property name="widgetResizable">
+                 <bool>true</bool>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="3">
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
+                <widget class="QWidget" name="widget_info">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>180</width>
+                   <height>590</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_2">
+                  <item>
+                   <layout class="QVBoxLayout" name="vl_info_area"/>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -745,8 +768,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>991</width>
-                   <height>669</height>
+                   <width>98</width>
+                   <height>28</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_15">
@@ -1021,13 +1044,6 @@
       </widget>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_thrd_count">
-      <property name="text">
-       <string>Active Thread Count:None</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1035,8 +1051,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1084</width>
-     <height>27</height>
+     <width>1223</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">

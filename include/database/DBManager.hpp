@@ -57,6 +57,7 @@
 #include <filesystem>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QVariantMap>
 
 using namespace std;
 
@@ -98,7 +99,7 @@ public:
 
     void releaseConnection(QSqlDatabase &db);
 
-    void execute_query(QString &query);
+    void execute_query(const QString &query_text, const QVariantMap &bind_values={});
 
     void create_klines_table(const QString table_name);
     void ensure_tables_exists();

@@ -160,6 +160,45 @@ void DBManager::releaseConnection(QSqlDatabase &db) {
     std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
 }
 
+void DBManager::execute_query(const QString &query_text, const QVariantMap &bind_values) {
+    QSqlDatabase db = get_connection();
+
+    // Bağlantı kontrolü
+    if (!db.isOpen()) {
+        qDebug() << "Connection not open!";
+        releaseConnection(db);
+        throw std::runtime_error("Database connection not open");
+    }
+
+    QSqlQuery query(db);
+
+    // Sorguyu hazırlama
+    if (!query.prepare(query_text)) {
+        qDebug() << "Query preparation error: " << query.lastError().text();
+        releaseConnection(db);
+        throw std::runtime_error("Query preparation failed: " + query.lastError().text().toStdString());
+    }
+
+    // Bind value ekleme
+    for (auto it = bind_values.begin(); it != bind_values.end(); ++it) {
+        query.bindValue(it.key(), it.value());
+    }
+
+    // Sorguyu çalıştırma
+    if (!query.exec()) {
+        qDebug() << "Query execution error: " << query.lastError().text();
+        releaseConnection(db);
+
+        throw DatabaseTableCreationException(
+            "Couldn't execute query, \nquery text: " + query.lastQuery().toStdString() + "\n" +
+            "Error: " + query.lastError().text().toStdString() + "\n"
+        );
+    }
+
+    releaseConnection(db);
+}
+
+
 void DBManager::create_klines_table(const QString table_name) {
     // CREATE BINANCE DATA TABLE
 

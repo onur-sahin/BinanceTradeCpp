@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 
+#include <QCloseEvent>
 #include "MainVw.hpp"
 
 #include <iostream>
@@ -46,6 +47,12 @@ void MainVw::closeEvent(QCloseEvent *event) {
 
 void MainVw::connectCreateModelButton(std::function<void()> callback){
     connect(ui->btn_create_new_model, &QPushButton::clicked, this,
+    [callback](){callback();}
+    );
+}
+
+void MainVw::connectPullDataButton(std::function<void()> callback){
+    connect(ui->btn_pull_data, &QPushButton::clicked, this, 
     [callback](){callback();}
     );
 }

@@ -24,10 +24,13 @@ public:
     void closeEvent(QCloseEvent *event);
 
     void connectCreateModelButton(std::function<void()> callback);
+    void connectPullDataButton   (std::function<void()> callback);
 
+
+
+Ui::MainWindow *ui;
 
 private:
-    Ui::MainWindow *ui;
 
 
 

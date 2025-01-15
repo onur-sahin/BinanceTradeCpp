@@ -3,6 +3,9 @@
 #include "MainVM.hpp"
 #include "MainVw.hpp"
 #include "CreateModelCoord.hpp"
+#include "PullDataCoord.hpp"
+#include "PullDataWidget.hpp"
+#include "PullDataVM.hpp"
 
 #include <iostream>
 
@@ -37,6 +40,18 @@ void MainCoord::connectViewModelToView(){
             m_createModelCoord->show_window(true);
         }
 
+    );
+
+    m_view->connectPullDataButton(
+        [this](){
+
+            PullDataCoord *coord = new PullDataCoord(m_view);
+            m_pullDataCoords.push_back(coord);
+
+            m_view->ui->vl_info_area->addWidget( coord->m_view );
+
+            coord->m_viewmodel->start_pulling_data();
+        }
     );
 }
 
