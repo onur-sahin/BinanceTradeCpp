@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/external/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/share/**",
+                "${workspaceFolder}/src/**",
+
+                "${workspaceFolder}/build/BinanceTradeCpp_autogen/include/",
+                "/home/adam/Qt/Tools/QtDesignStudio/bin",
+                "/home/adam/Qt/6.7.3/gcc_64/include/",
+                "/home/adam/Qt/6.7.3/gcc_64/include/QtSql",
+                "/home/adam/Qt/6.7.3/gcc_64/include/QtCore",
+                "/home/adam/Qt/6.7.3/gcc_64/include/QtWidgets",
+                "/home/adam/Qt/6.7.3/gcc_64/include/QtGui"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": ["${workspaceFolder}"]
+            
+            },
+            "intelliSenseMode": "linux-clang-x64",
+            "configurationProvider": "ms-vscode.cmake-tools"
+            
+
+        }
+    ],
+    "version": 4
+}

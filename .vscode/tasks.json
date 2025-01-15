@@ -1,0 +1,142 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake Build (Release)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Release",
+                "--target",
+                "install"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task for CMake Release build."
+        },
+        
+        {
+            "label": "CMake Build (MinSizeRel)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-DCMAKE_BUILD_TYPE=MinSizeRel",
+                "-B",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task for CMake MinSizeRel build."
+        },
+        {
+            "label": "Build with Make",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"],
+            "dependsOn": ["CMake Build (MinSizeRel)"]
+        },
+
+
+        {
+            "label": "CMake Build (Debug)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Debug",
+                "--target",
+                "install"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task for CMake Debug build."
+        },
+
+
+        {
+            "label": "Build with gcc",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-o",
+                "./tmp/${fileBasenameNoExtension}.out",
+                "${file}",
+                "-I./include/tools",
+                "-I./tmp",
+                "-I/home/adam/Qt/6.7.3/gcc_64/include",
+                "-I/home/adam/Qt/6.7.3/gcc_64/include/QtWidgets",
+                "-I/home/adam/Qt/6.7.3/gcc_64/include/QtCore",
+                "-L/home/adam/Qt/6.7.3/gcc_64/lib -lQt6Widgets -lQt6Core -lQt6Gui",
+                "-I/usr/include/openssl -L/usr/lib -lssl -lcrypto",
+                ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "options": {
+                "cwd": "${workspaceFolder}"  // Çalışma dizini ayarı
+            },
+            "detail": "Generated task to compile C++ files."
+
+        },
+
+
+
+        {
+            "label": "Clang-Tidy Project Check",
+            "type": "shell",
+            "command": "clang-tidy",
+            "args": [
+              "-p",
+              "./build",
+              "-checks=modernize-deprecated-headers,misc-unused-using-decls,llvm-include-order",
+              "src/**/*.cpp",
+              "include/**/*.h",
+              "include/**/*.hpp"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "files.associations": {
+        "*.s": "gas",
+        "qapplication": "cpp",
+        "qobject": "cpp",
+        "qmainwindow": "cpp",
+        "iosfwd": "cpp",
+        "qfile": "cpp",
+        "qtextstream": "cpp",
+        "stdexcept": "cpp",
+        "fstream": "cpp",
+        "qlist": "cpp",
+        "any": "cpp",
+        "functional": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "sstream": "cpp",
+        "qmap": "cpp"
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "postgres",
+            "database": "postgres",
+            "username": "postgres",
+            "password": "7532+7532+"
+        }
+    ],
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.buildDirectory": "${workspaceFolder}/builds/${buildKit}/${buildType}"
+}

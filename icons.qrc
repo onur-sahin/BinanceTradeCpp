@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="show_password">icons/show-password-64.png</file>
+        <file alias="eye">icons/eye-50.png</file>
+        <file alias="cross_mark">icons/cross-mark-48.png</file>
+        <file alias="cross_eye">icons/cross-eye-50.png</file>
+        <file alias="cross">icons/cross-48.png</file>
+        <file alias="clear_symbol">icons/clear-symbol-48.png</file>
+        <file alias="check_mark">icons/check-mark-48.png</file>
+        <file alias="check">icons/check-48.png</file>
+    </qresource>
+</RCC>

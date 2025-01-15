@@ -1,0 +1,11 @@
+
+{
+    "version":           "@PROJECT_VERSION@",
+    "qt_version":        "@QT_VERSION_MAJOR@",
+    "qt_version_minor":  "@QT_VERSION_MINOR@",
+    "qt_version_patch":  "@QT_VERSION_PATCH@",
+    "qt_version_string": "@QT_VERSION_STRING@",
+    "release_date":      "@PROJECT_RELEASE_DATE@",
+    "description":       "@PROJECT_DESCRIPTION@",
+    "author":            "@PROJECT_AUTHOR@"
+}
