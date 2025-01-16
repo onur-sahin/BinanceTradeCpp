@@ -13,6 +13,7 @@ AppImage klasöründe ayrıca bir appImage dosyası bulunmaktadır. Bu dosyayı 
 - CMake (v3.10 or higher)
 - g++ 13 or higher (or another compiler)
 - Qt 6 (v6.2 or higher recommended)
+- curl
 - Required libraries:
    - absent
 
@@ -24,6 +25,8 @@ AppImage klasöründe ayrıca bir appImage dosyası bulunmaktadır. Bu dosyayı 
 Linux (Debian/Ubuntu-based):
 ```bash
 sudo apt-get install cmake qt6-base-dev
+sudo apt-get install libcurl4-openssl-dev
+
 ```
 
 ## Programın Çalıştırılması

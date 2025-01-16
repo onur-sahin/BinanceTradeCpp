@@ -22,6 +22,9 @@
 class MainVM {
 public:
     MainVM();
+    void update_inputs_for_train(const QString &pair,    const qint32 &epoch,
+                                 const QDate &startDate, const QTime &startTime,
+                                 const QDate &endDate,   const QTime &endTime);
 
 
 private:

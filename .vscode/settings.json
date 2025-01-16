@@ -16,7 +16,8 @@
         "optional": "cpp",
         "sstream": "cpp",
         "qmap": "cpp",
-        "qvariantmap": "cpp"
+        "qvariantmap": "cpp",
+        "qtime": "cpp"
     },
     "sqltools.connections": [
         {

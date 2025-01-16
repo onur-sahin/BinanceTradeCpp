@@ -5,11 +5,12 @@
 #include <unistd.h>
 
 class QThread;
+class QDataTime;
 
 
 class PullDataWorker : public QObject {
     Q_OBJECT
-    
+
 public:
 
 signals:
@@ -33,6 +34,10 @@ public:
 
 signals:
     void dataFetched();  // Veri çekme işlemi tamamlandığında sinyal
+
+public:
+    QString        *start_timestamp;
+
 
 private:
     QThread        *workerThread;

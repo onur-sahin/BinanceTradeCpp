@@ -43,16 +43,31 @@ void MainCoord::connectViewModelToView(){
     );
 
     m_view->connectPullDataButton(
+
         [this](){
 
-            PullDataCoord *coord = new PullDataCoord(m_view);
-            m_pullDataCoords.push_back(coord);
+            m_viewmodel->update_inputs_for_train(m_view->ui->cb_pairs->currentText(),
+                                                 m_view->ui->le_epoch->text().toInt(), //toInt 32 bit, toLongLong 64 bit
+                                                 m_view->ui->de_train_start->date(),
+                                                 m_view->ui->te_train_start->time(),
+                                                 m_view->ui->de_train_end->date(),
+                                                 m_view->ui->te_train_end->time()
+            );  
 
-            m_view->ui->vl_info_area->addWidget( coord->m_view );
+            PullDataCoord *pullDataCoord = new PullDataCoord(m_view);
 
-            coord->m_viewmodel->start_pulling_data();
+            m_pullDataCoords.push_back(pullDataCoord);
+
+            m_view->ui->vl_info_area->addWidget( pullDataCoord->m_view );
+            // m_viewmodel->
+            std::cout << "bu:" << m_view->ui->de_train_start->date().toString().toStdString() << std::endl;
+            m_view->ui->te_train_start->time();
+            pullDataCoord->m_viewmodel->start_pulling_data();
+
         }
     );
+
+
 }
 
 

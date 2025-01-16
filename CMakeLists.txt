@@ -40,6 +40,7 @@ find_package(Qt${QT_VERSION_MAJOR}
 )
 
 find_package( OpenSSL REQUIRED )
+find_package( CURL REQUIRED )
 
 
 set(TS_FILES ${PROJECT_NAME}_en_US.ts)
@@ -89,6 +90,8 @@ set(PROJECT_SOURCES
 )
 
 set(PROJECT_HEADERS
+
+    include/tools/Binance.hpp
 
     include/database/DBManager.hpp
     include/coordinator/AppCoord.hpp
@@ -233,6 +236,7 @@ target_link_libraries(  ${PROJECT_NAME} PRIVATE
                         Qt${QT_VERSION_MAJOR}::Gui
                         OpenSSL::SSL
                         OpenSSL::Crypto
+                        CURL::libcurl
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

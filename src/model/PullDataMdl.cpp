@@ -1,18 +1,24 @@
 
 
 #include "PullDataMdl.hpp"
+#include "Binance.hpp"
 #include <QThread>
 #include <QDebug>
 
 
-void PullDataWorker::pullData(){
-    
-        for (int i= 0; i<10; i++){
-            std::cout<<"iş\n"<<std::endl;
-            sleep(5);
-        }
 
-        emit finished();
+void PullDataWorker::pullData(){
+
+    std::string symbol = "BTCUSDT";      // İşlem çifti
+    std::string interval = "1h";        // Mum çubuğu aralığı (1 saat)
+    long startTime = 1672531200000;     // Başlangıç zamanı (timestamp, milisaniye)
+    long endTime = 1672617600000;       // Bitiş zamanı (timestamp, milisaniye)
+
+    fetchBinanceHistoricalData(symbol, interval, startTime, endTime);
+
+
+
+    emit finished();
 }
 
 
