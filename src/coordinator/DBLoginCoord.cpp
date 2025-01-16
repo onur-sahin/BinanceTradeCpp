@@ -4,8 +4,8 @@
 #include "DBLoginCoord.hpp"
 #include "DBLoginVM.hpp"
 #include "DBLoginVw.hpp"
-#include <QString>
 #include <QMessageBox>
+#include <QString>
 
 DBLoginCoord::DBLoginCoord(QObject *parent)
     : QObject    (     parent      )

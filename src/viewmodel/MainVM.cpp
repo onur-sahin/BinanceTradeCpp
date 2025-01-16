@@ -23,14 +23,20 @@ MainVM::MainVM()
 
 }
 
-void MainVM::update_inputs_for_train(const QString &pair,    const qint32 &epoch,
+void MainVM::update_inputs_for_train(const QString &pair,    const QString &interval, const qint32 &epoch,
                                      const QDate &startDate, const QTime &startTime,
                                      const QDate &endDate, const QTime &endTime)
 {
     m_model->setPair(pair);
+    m_model->setInterval(interval);
     m_model->setEpoch(epoch);
     m_model->setTrainStartDate(startDate);
     m_model->setTrainStartTime(startTime);
     m_model->setTrainEndDate(endDate);
     m_model->setTrainEndTime(endTime);
+}
+
+
+void MainVM::print_main_model_values(){
+    m_model->print_main_model_values();
 }

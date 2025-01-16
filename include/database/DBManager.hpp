@@ -52,12 +52,14 @@
 #pragma once
 
 #include <QList>
-#include <QSqlDatabase>
-#include <QString>
-#include <filesystem>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QSqlDatabase>
+#include <QString>
 #include <QVariantMap>
+#include <filesystem>
+
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -99,10 +101,14 @@ public:
 
     void releaseConnection(QSqlDatabase &db);
 
+    void insert_klines(const QString &table_name, const nlohmann::json &parsed_json);
+    QVariantList execute_query_result(const QString &query_text, const QVariantMap &bind_values);
     void execute_query(const QString &query_text, const QVariantMap &bind_values={});
 
     void create_klines_table(const QString table_name);
     void ensure_tables_exists();
+
+    QPair<qint64, qint64> get_min_max_ts(const QString &table_name);
 
 private:
 

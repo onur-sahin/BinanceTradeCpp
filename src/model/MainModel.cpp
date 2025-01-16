@@ -18,6 +18,9 @@
 
 #include "MainModel.hpp"
 #include <QTimeZone>
+#include <iostream>
+
+using namespace std;
 
 MainModel::MainModel(){
 
@@ -60,9 +63,9 @@ void MainModel::update_dt_testEnd(){
 }
 
 qint64 MainModel::getTrainStartTs() const {return ts_ms_trainStart;}
-qint64 MainModel::getTraintEndTs()  const {return ts_ms_trainEnd;}
-qint64 MainModel::getTestStartTs()  const {return ts_ms_testStart;}
-qint64 MainModel::getTestEndTs()    const {return ts_ms_testEnd;}
+qint64 MainModel::getTraintEndTs()  const {return ts_ms_trainEnd;  }
+qint64 MainModel::getTestStartTs()  const {return ts_ms_testStart; }
+qint64 MainModel::getTestEndTs()    const {return ts_ms_testEnd;   }
 
 
 // Getter ve Setter for trainStartDate
@@ -72,6 +75,7 @@ QDate MainModel::getTrainStartDate() const {
 
 void MainModel::setTrainStartDate(const QDate& date) {
     trainStartDate = date;
+    update_dt_trainStart();
 }
 
 // Getter ve Setter for trainEndDate
@@ -81,6 +85,7 @@ QDate MainModel::getTrainEndDate() const {
 
 void MainModel::setTrainEndDate(const QDate& date) {
     trainEndDate = date;
+    update_dt_trainEnd();
 }
 
 // Getter ve Setter for trainStartTime
@@ -90,6 +95,7 @@ QTime MainModel::getTrainStartTime() const {
 
 void MainModel::setTrainStartTime(const QTime& time) {
     trainStartTime = time;
+    update_dt_trainStart();
 }
 
 // Getter ve Setter for trainEndTime
@@ -99,6 +105,7 @@ QTime MainModel::getTrainEndTime() const {
 
 void MainModel::setTrainEndTime(const QTime& time) {
     trainEndTime = time;
+    update_dt_trainEnd();
 }
 
 // Getter ve Setter for epoch
@@ -108,6 +115,14 @@ qint32 MainModel::getEpoch() const {
 
 void MainModel::setEpoch(qint32 value) {
     epoch = value;
+}
+
+QString MainModel::getInterval() const {
+    return interval;
+}
+
+void MainModel::setInterval(QString value) {
+    interval = value;
 }
 
 // Getter ve Setter for pair
@@ -144,6 +159,7 @@ QDate MainModel::getTestStartDate() const {
 
 void MainModel::setTestStartDate(const QDate& date) {
     testStartDate = date;
+    update_dt_testStart();
 }
 
 // Getter ve Setter for testEndDate
@@ -153,6 +169,7 @@ QDate MainModel::getTestEndDate() const {
 
 void MainModel::setTestEndDate(const QDate& date) {
     testEndDate = date;
+    update_dt_testEnd();
 }
 
 // Getter ve Setter for testStartTime
@@ -162,6 +179,7 @@ QTime MainModel::getTestStartTime() const {
 
 void MainModel::setTestStartTime(const QTime& time) {
     testStartTime = time;
+    update_dt_testStart();
 }
 
 // Getter ve Setter for testEndTime
@@ -171,4 +189,38 @@ QTime MainModel::getTestEndTime() const {
 
 void MainModel::setTestEndTime(const QTime& time) {
     testEndTime = time;
+    update_dt_testEnd();
+}
+
+
+
+
+void MainModel::print_main_model_values(){
+
+        std::cout << std::left << std::setw(25) << "Train Start Date:" << trainStartDate.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train End Date:" << trainEndDate.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train Start Time:" << trainStartTime.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train End Time:" << trainEndTime.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Epoch:" << epoch << std::endl;
+        std::cout << std::left << std::setw(25) << "Interval:" << interval.toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Pair:" << pair.toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train Start DateTime:" << dt_trainStart.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train End DateTime:" << dt_trainEnd.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train Start Timestamp (ms):" << ts_ms_trainStart << " - "
+        << QDateTime::fromMSecsSinceEpoch(ts_ms_trainStart, QTimeZone::utc()).toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Train End Timestamp (ms):" << ts_ms_trainEnd << " - "
+        << QDateTime::fromMSecsSinceEpoch(ts_ms_trainEnd, QTimeZone::utc()).toString().toStdString() << std::endl;
+
+        std::cout << std::left << std::setw(25) << "Test Speed:" << testSpeed << std::endl;
+        std::cout << std::left << std::setw(25) << "Max Chart Count:" << maxChartCount << std::endl;
+        std::cout << std::left << std::setw(25) << "Test Start Date:" << testStartDate.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test End Date:" << testEndDate.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test Start Time:" << testStartTime.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test End Time:" << testEndTime.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test Start DateTime:" << dt_testStart.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test End DateTime:" << dt_testEnd.toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test Start Timestamp (ms):" << ts_ms_testStart << " - "
+        << QDateTime::fromMSecsSinceEpoch(ts_ms_testStart, QTimeZone::utc()).toString().toStdString() << std::endl;
+        std::cout << std::left << std::setw(25) << "Test End Timestamp (ms):" << ts_ms_testEnd << " - "
+        << QDateTime::fromMSecsSinceEpoch(ts_ms_testStart, QTimeZone::utc()).toString().toStdString() << std::endl;
 }

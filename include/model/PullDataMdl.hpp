@@ -13,6 +13,11 @@ class PullDataWorker : public QObject {
 
 public:
 
+    QString pair     = "BTCUSDT";
+    QString interval = "5m";
+    qint64  startTs  = 1672531200000;
+    qint64  endTs    = 1672533000000;
+
 signals:
     void updateProgress(int value);
     void finished();
@@ -29,14 +34,13 @@ public:
 
     PullDataMdl(QObject *parent = nullptr);
 
-    void start_pulling_data();
+    void start_pulling_data(QString pair, QString interval, qint64 startTs, qint64 endTs);
 
 
 signals:
     void dataFetched();  // Veri çekme işlemi tamamlandığında sinyal
 
 public:
-    QString        *start_timestamp;
 
 
 private:

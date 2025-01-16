@@ -1,7 +1,6 @@
 #include "PullDataCoord.hpp"
-#include "PullDataWidget.hpp"
 #include "PullDataVM.hpp"
-
+#include "PullDataWidget.hpp"
 
 PullDataCoord::PullDataCoord(QObject *parent)
     : QObject(parent)

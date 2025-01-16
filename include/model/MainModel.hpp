@@ -28,6 +28,8 @@ class MainModel{
 public:
     MainModel();
 
+    void print_main_model_values();
+
     void update_ts_train_start();
     void update_ts_train_end();
     void update_ts_test_start();
@@ -63,6 +65,9 @@ public:
     // Getter ve Setter for epoch
     qint32 getEpoch() const;
     void setEpoch(qint32 value);
+
+    QString getInterval() const;
+    void setInterval(QString value);
 
     // Getter ve Setter for pair
     QString getPair() const;
@@ -100,6 +105,7 @@ private:
     QTime trainEndTime;
 
     qint32 epoch;
+    QString interval;
     QString pair;
 
     QDateTime dt_trainStart;

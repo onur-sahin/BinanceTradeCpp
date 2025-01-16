@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ui_MainWindow.h"
 #include "IMainVw.hpp"
+#include "ui_MainWindow.h"
 #include <QMainWindow>
 
 // QT_BEGIN_NAMESPACE

@@ -197,8 +197,8 @@ QMap<QString, QString> read_QMap_from_json_file(const  std::string &filepath){
 
 
 #include <QGuiApplication>
-#include <QScreen>
 #include <QPoint>
+#include <QScreen>
 
 namespace utils{
 

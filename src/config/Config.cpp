@@ -1,10 +1,10 @@
 
 
-#include <cstdlib>      // for system() function
-#include <fstream>      // for ifstream to read from file
-#include <iostream>     // for std::cout and std::cerr
-#include <unistd.h>     // for POSIX API (e.g., fork, exec)
 #include <QDebug>
+#include <cstdlib>  // for system() function
+#include <fstream>  // for ifstream to read from file
+#include <iostream> // for std::cout and std::cerr
+#include <unistd.h> // for POSIX API (e.g., fork, exec)
 
 #include "Config.hpp"
 #include "utils.hpp"

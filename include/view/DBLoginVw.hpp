@@ -22,8 +22,8 @@
 #include "IDBLoginVw.hpp"
 #include "ui_DBLoginDialog.h"
 #include <QCheckBox>
-#include <QObject>
 #include <QDialog>
+#include <QObject>
 
 // namespace Ui {
 // class DBLoginVw;

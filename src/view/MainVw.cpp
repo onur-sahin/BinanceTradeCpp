@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 
-#include <QCloseEvent>
 #include "MainVw.hpp"
+#include <QCloseEvent>
 
 #include <iostream>
 

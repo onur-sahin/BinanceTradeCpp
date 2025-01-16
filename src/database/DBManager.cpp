@@ -21,14 +21,18 @@
 #include <stdexcept>
 #include <sys/wait.h>  // for WEXITSTATUS() MACRO
 
+#include <QDateTime>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QDateTime>
+#include <QSqlRecord>
 
 #include "Config.hpp"
 #include "DBManager.hpp"
 #include "Exceptions.hpp"
+#include "Queries.hpp"
+
+#include <nlohmann/json.hpp>
 
 // Initialize static member
 DBManager* DBManager::instance = nullptr;
@@ -119,8 +123,9 @@ QSqlDatabase DBManager::get_connection() {
     
     // Eğer connection pool boş değilse, son bağlantıyı al
     if (!connectionPool_.isEmpty()) {
+
         QSqlDatabase db = connectionPool_.takeLast();
-        
+
         if (db.isOpen()) {
             return db;
         }
@@ -160,7 +165,100 @@ void DBManager::releaseConnection(QSqlDatabase &db) {
     std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
 }
 
+
+
+void DBManager::insert_klines(const QString &table_name, const nlohmann::json &parsed_json){
+
+    QSqlDatabase db = get_connection();
+
+    // Bağlantı kontrolü
+    if (!db.isOpen()) {
+        qDebug() << "Connection not open!";
+        releaseConnection(db);
+        throw std::runtime_error("Database connection not open");
+    }
+
+    QSqlQuery query(db);
+
+    // Sorguyu hazırlama
+    if (!query.prepare(Queries::insert_kline.arg(table_name))) {
+        qDebug() << "Query preparation error: " << query.lastError().text();
+        releaseConnection(db);
+        throw std::runtime_error("Query preparation failed: " + query.lastError().text().toStdString());
+    }
+
+    for (const auto &row : parsed_json) {
+
+        query.bindValue(0, QVariant::fromValue(std::stoll(row[0].dump()))); // open_time
+        query.bindValue(1, QVariant::fromValue(std::stof(row[1].get<std::string>())));  // open
+        query.bindValue(2, QVariant::fromValue(stof(row[2].get<std::string>())));  // high
+        query.bindValue(3, QVariant::fromValue(stof(row[3].get<std::string>())));  // low
+        query.bindValue(4, QVariant::fromValue(stof(row[4].get<std::string>())));  // close
+        query.bindValue(5, QVariant::fromValue(stof(row[5].get<std::string>())));  // volume
+        query.bindValue(6, QVariant::fromValue(stoll(row[6].dump()))); // close_time
+        query.bindValue(7, QVariant::fromValue(stof(row[7].get<std::string>())));  // qav
+        query.bindValue(8, QVariant::fromValue(stof(row[8].dump())));  // num_trades
+        query.bindValue(9, QVariant::fromValue(stof(row[9].get<std::string>())));  // taker_base_vol
+        query.bindValue(10,QVariant::fromValue(stof(row[10].get<std::string>()))); // taker_quoto_vol
+
+
+        if (!query.exec()) {
+            qDebug() << "Query execution error: " << query.lastError().text();
+            releaseConnection(db);
+
+            throw DatabaseTableCreationException(
+                "Couldn't execute query, \nquery text: " + query.lastQuery().toStdString() + "\n" +
+                "Error: " + query.lastError().text().toStdString() + "\n"
+            );
+        }
+
+    }
+
+    releaseConnection(db);
+
+
+}
+
 void DBManager::execute_query(const QString &query_text, const QVariantMap &bind_values) {
+    QSqlDatabase db = get_connection();
+
+    // Bağlantı kontrolü
+    if (!db.isOpen()) {
+        qDebug() << "Connection not open!";
+        releaseConnection(db);
+        throw std::runtime_error("Database connection not open");
+    }
+
+    QSqlQuery query(db);
+
+    // Sorguyu hazırlama
+    if (!query.prepare(query_text)) {
+        qDebug() << "Query preparation error: " << query.lastError().text();
+        releaseConnection(db);
+        throw std::runtime_error("Query preparation failed: " + query.lastError().text().toStdString());
+    }
+
+    // Bind value ekleme
+    for (auto it = bind_values.begin(); it != bind_values.end(); ++it) {
+        query.bindValue(it.key(), it.value());
+    }
+
+    // Sorguyu çalıştırma
+
+    if (!query.exec()) {
+        qDebug() << "Query execution error: " << query.lastError().text();
+        releaseConnection(db);
+
+        throw DatabaseException(
+            "Couldn't execute query, \nquery text: " + query.lastQuery().toStdString() + "\n" +
+            "Error: " + query.lastError().text().toStdString() + "\n"
+        );
+    }
+
+    releaseConnection(db);
+}
+
+QVariantList DBManager::execute_query_result(const QString &query_text, const QVariantMap &bind_values) {
     QSqlDatabase db = get_connection();
 
     // Bağlantı kontrolü
@@ -189,13 +287,26 @@ void DBManager::execute_query(const QString &query_text, const QVariantMap &bind
         qDebug() << "Query execution error: " << query.lastError().text();
         releaseConnection(db);
 
-        throw DatabaseTableCreationException(
+        throw DatabaseException(
             "Couldn't execute query, \nquery text: " + query.lastQuery().toStdString() + "\n" +
             "Error: " + query.lastError().text().toStdString() + "\n"
         );
     }
 
+    // Sonuçları almak için bir liste oluştur
+    QVariantList results;
+
+    // Sonuçları listeye ekleme
+    while (query.next()) {
+        QVariantMap row;
+        for (int i = 0; i < query.record().count(); ++i) {
+            row.insert(query.record().fieldName(i), query.value(i));
+        }
+        results.append(row);
+    }
+
     releaseConnection(db);
+    return results;
 }
 
 
@@ -241,6 +352,21 @@ void DBManager::create_klines_table(const QString table_name) {
     }
 
     releaseConnection(db);
+}
+
+QPair<qint64, qint64> DBManager::get_min_max_ts(const QString &table_name){
+    QString query = R"(
+                        SELECT MIN(open_time) AS min_open_time, MAX(open_time) AS max_open_time
+                            FROM %1;
+                       )";
+
+    QVariantList list = execute_query_result(query.arg(table_name), QVariantMap());
+
+    QVariantMap map = list.at(0).toMap();
+
+    return  QPair<qint64, qint64>(map.value("min_open_time").toLongLong(),
+                                  map.value("max_open_time").toLongLong());
+
 }
 
 void DBManager::ensure_tables_exists() {

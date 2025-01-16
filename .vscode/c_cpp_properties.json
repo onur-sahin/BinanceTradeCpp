@@ -8,7 +8,7 @@
                 "${workspaceFolder}/share/**",
                 "${workspaceFolder}/src/**",
 
-                "${workspaceFolder}/build/BinanceTradeCpp_autogen/include/",
+                // "${workspaceFolder}/builds/Qt-6.7.3-gcc_64/Debug/BinanceTradeCpp_autogen/include/",
                 "/home/adam/Qt/Tools/QtDesignStudio/bin",
                 "/home/adam/Qt/6.7.3/gcc_64/include/",
                 "/home/adam/Qt/6.7.3/gcc_64/include/QtSql",

@@ -4,6 +4,7 @@
 
 class Queries{
 
+public:
     static const QString insert_account;
     static const QString insert_model;
     static const QString insert_kline;
@@ -21,7 +22,20 @@ const QString Queries::insert_model = R"(
 )";
 
 const QString Queries::insert_kline = R"(
-    INSERT INTO 
+    INSERT INTO %1 (
+        open_time, 
+        open, 
+        high, 
+        low, 
+        close, 
+        volume, 
+        close_time, 
+        qav, 
+        num_trades, 
+        taker_base_vol, 
+        taker_quoto_vol
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (open_time) DO NOTHING
+
 )";
 
 

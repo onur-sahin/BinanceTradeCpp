@@ -8,7 +8,7 @@ class PullDataVM : public QObject{
 public:
     PullDataVM(QObject *parent = nullptr);
 
-    void start_pulling_data();
+    void start_pulling_data(QString pair, QString interval, qint64 startTs, qint64 endTs);
 
     PullDataMdl *m_model;
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1223</width>
-    <height>828</height>
+    <width>1162</width>
+    <height>921</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,8 +53,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1203</width>
-         <height>738</height>
+         <width>1142</width>
+         <height>831</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -110,7 +110,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>274</width>
-                   <height>590</height>
+                   <height>678</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_5">
@@ -177,14 +177,14 @@
                    <x>0</x>
                    <y>0</y>
                    <width>274</width>
-                   <height>590</height>
+                   <height>678</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_6">
-                  <item row="8" column="0">
-                   <widget class="QPushButton" name="btn_add_account">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_selected_account">
                     <property name="text">
-                     <string>Add Account</string>
+                     <string>Selected Accounts:</string>
                     </property>
                    </widget>
                   </item>
@@ -198,7 +198,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0">
+                  <item row="4" column="0">
                    <widget class="QListWidget" name="lw_accounts">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -208,7 +208,14 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="0">
+                  <item row="5" column="0">
+                   <widget class="QPushButton" name="btn_add_account">
+                    <property name="text">
+                     <string>Add Account</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
                    <widget class="QPushButton" name="btn_del_account">
                     <property name="text">
                      <string>Delete Account</string>
@@ -219,13 +226,6 @@
                    <widget class="QPushButton" name="btn_select_account">
                     <property name="text">
                      <string>Select</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_selected_account">
-                    <property name="text">
-                     <string>Selected Accounts:</string>
                     </property>
                    </widget>
                   </item>
@@ -248,6 +248,9 @@
               </item>
               <item row="0" column="6">
                <layout class="QVBoxLayout" name="verticalLayout_3">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+                </property>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_8">
                   <item>
@@ -300,6 +303,21 @@
                        <property name="sizeAdjustPolicy">
                         <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
                        </property>
+                       <item>
+                        <property name="text">
+                         <string>BTCUSDT</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>DOGEUSDT</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>ETHUSDT</string>
+                        </property>
+                       </item>
                       </widget>
                      </item>
                      <item>
@@ -336,36 +354,6 @@
                    <string/>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_13">
-                   <item row="2" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout">
-                     <item>
-                      <widget class="QLabel" name="label">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="text">
-                        <string>epoch:       </string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLineEdit" name="le_epoch">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="text">
-                        <string>2</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
                    <item row="0" column="0">
                     <layout class="QHBoxLayout" name="horizontalLayout_3">
                      <item>
@@ -382,6 +370,23 @@
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="dateTime">
+                        <datetime>
+                         <hour>9</hour>
+                         <minute>0</minute>
+                         <second>0</second>
+                         <year>2024</year>
+                         <month>1</month>
+                         <day>1</day>
+                        </datetime>
+                       </property>
+                       <property name="time">
+                        <time>
+                         <hour>9</hour>
+                         <minute>0</minute>
+                         <second>0</second>
+                        </time>
                        </property>
                        <property name="calendarPopup">
                         <bool>true</bool>
@@ -416,6 +421,86 @@
                      </item>
                     </layout>
                    </item>
+                   <item row="3" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <property name="spacing">
+                      <number>6</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="btn_start_train">
+                       <property name="text">
+                        <string>Start Train (pull data)</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_pull_data">
+                       <property name="text">
+                        <string>Pull Data</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item row="2" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <property name="sizeConstraint">
+                      <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>interval:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="le_interval_pulldata">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>5m</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>epoch:   </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="le_epoch">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>2</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
                    <item row="1" column="0">
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
@@ -433,6 +518,23 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="dateTime">
+                        <datetime>
+                         <hour>9</hour>
+                         <minute>0</minute>
+                         <second>0</second>
+                         <year>2024</year>
+                         <month>1</month>
+                         <day>1</day>
+                        </datetime>
+                       </property>
+                       <property name="time">
+                        <time>
+                         <hour>9</hour>
+                         <minute>0</minute>
+                         <second>0</second>
+                        </time>
+                       </property>
                        <property name="calendarPopup">
                         <bool>true</bool>
                        </property>
@@ -446,6 +548,16 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="dateTime">
+                        <datetime>
+                         <hour>4</hour>
+                         <minute>0</minute>
+                         <second>0</second>
+                         <year>2000</year>
+                         <month>1</month>
+                         <day>1</day>
+                        </datetime>
+                       </property>
                        <property name="calendarPopup">
                         <bool>true</bool>
                        </property>
@@ -454,28 +566,10 @@
                        </property>
                        <property name="time">
                         <time>
-                         <hour>23</hour>
-                         <minute>59</minute>
+                         <hour>4</hour>
+                         <minute>0</minute>
                          <second>0</second>
                         </time>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item row="3" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_9">
-                     <item>
-                      <widget class="QPushButton" name="btn_start_train">
-                       <property name="text">
-                        <string>Start Train (pull data)</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="btn_pull_data">
-                       <property name="text">
-                        <string>Pull Data</string>
                        </property>
                       </widget>
                      </item>
@@ -697,8 +791,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>180</width>
-                   <height>590</height>
+                   <width>119</width>
+                   <height>678</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -755,8 +849,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
-                   <height>28</height>
+                   <width>1098</width>
+                   <height>678</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_15">
@@ -1038,7 +1132,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1223</width>
+     <width>1162</width>
      <height>23</height>
     </rect>
    </property>
