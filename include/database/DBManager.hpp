@@ -64,6 +64,7 @@
 using namespace std;
 
 class DBManager {
+
 private:
     // Private static member to hold the single instance
     static DBManager* instance;
@@ -104,7 +105,7 @@ public:
     void insert_klines(const QString &table_name, const nlohmann::json &parsed_json);
     QVariantList execute_query_result(const QString &query_text, const QVariantMap &bind_values);
     void execute_query(const QString &query_text, const QVariantMap &bind_values={});
-
+    QVector<qint64> select_open_time(const QString table_name, const qint64 startTs, const qint64 endTs);
     void create_klines_table(const QString table_name);
     void ensure_tables_exists();
 

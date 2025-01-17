@@ -20,29 +20,21 @@ qint64 intervalToMs(QString &interval){
     return 0; // Default return value if condition is not met
 }
 
-void PullDataWorker::pullData(){
+void PullDataWorker::download_and_save(qint64 startTs, qint64 endTs){
 
     string data;
-    QString table_name = "tbl_" + pair + "_" + interval;
+
     DBManager *db = DBManager::getInstance();
 
-    db->create_klines_table(table_name);
-
-    QPair<qint64,qint64> min_max = db->get_min_max_ts(table_name);
-
-    if( startTs < min_max.first and endTs >= min_max.second){
-
-    } else if ( startTs >= min_max.first and endTs <= min_max.second){
     
-    } else if ()
-    
-    qint64 pulledLastTimestamp = -1;
 
-    qint64 deltaMs = intervalToMs(interval);
-    qint64 _500deltaMs = deltaMs*500;
+    pulledLastTimestamp = -1;
+
+    deltaMs      = intervalToMs(interval);
+    _500deltaMs = deltaMs * 500;
 
     qint64 tempStartTimestamp = startTs;
-    qint64 tempEndTimestamp   = startTs + 500*deltaMs;
+    qint64 tempEndTimestamp = startTs + 500 * deltaMs;
 
     while(pulledLastTimestamp != endTs){
 
@@ -66,13 +58,68 @@ void PullDataWorker::pullData(){
 
         db->insert_klines(table_name, parsed_json);
 
-        tempStartTimestamp = tempEndTimestamp   + deltaMs;
+        tempStartTimestamp = tempEndTimestamp + deltaMs;
         tempEndTimestamp   = tempStartTimestamp + _500deltaMs;
 
 
     }
 
+}
+
+void PullDataWorker::pullData(){
+
+    if (startTs > endTs){
+        emit finished();
+        return;
+    }
+
+    //kopya oluştur
+    qint64 startTs = this->startTs;
+    qint64 endTs   = this->endTs;
+
+    // startTs'yi yukarı yuvarla
+    startTs = ((startTs + deltaMs - 1) / deltaMs) * deltaMs;
+
+    // endTs'yi aşağı yuvarla
+    endTs = (endTs / deltaMs) * deltaMs;
+
+    table_name = "tbl_" + pair + "_" + interval;
+
+    DBManager *db = DBManager::getInstance();
+
+    db->create_klines_table(table_name);
+
+    QVector<qint64> saved_ts = db->select_open_time(table_name, startTs, endTs);
+    QVector<qint64> absent_ts;
+
+    QVector<QPair<qint64, qint64>> pair_ts;
+
+  
+    qint64 temp_ts = startTs;
+
+    while(temp_ts <= endTs){
+        if(not saved_ts.contains(temp_ts)){
+            absent_ts.append(temp_ts);
+        }
+
+        temp_ts += deltaMs;
+    }
+
+    qint64 temp_startTs = absent_ts.at(0);
+    qint64 temp_endTs   = temp_startTs;
+
+    for (qint64 &ts : absent_ts){
+
+        temp_ts = ts + deltaMs;
+
+        if ( absent_ts.contains(temp_ts) ){
+            temp_endTs = temp_ts;
+        }
+
+        
+    }   
     
+
 
 
     emit finished();

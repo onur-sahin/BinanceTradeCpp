@@ -8,6 +8,7 @@ public:
     static const QString insert_account;
     static const QString insert_model;
     static const QString insert_kline;
+    static const QString select_open_time;
 
 };
 
@@ -16,6 +17,10 @@ const QString Queries::insert_account = R"(
                     VALUES (:account_name, :account_type, :api_key, :api_secret);
 )";
 
+const QString Queries::select_open_time = R"(
+    SELECT open_time FROM "%1"
+        WHERE open_time BETWEEN :startTs AND :endTs;
+    )";
 
 const QString Queries::insert_model = R"(
     INSERT INTO 

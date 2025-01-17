@@ -152,6 +152,9 @@ QSqlDatabase DBManager::get_connection() {
 }
 
 
+
+
+
 void DBManager::releaseConnection(QSqlDatabase &db) {
 
     QMutexLocker locker(&mutex_);
@@ -216,6 +219,49 @@ void DBManager::insert_klines(const QString &table_name, const nlohmann::json &p
 
     releaseConnection(db);
 
+}
+
+QVector<qint64> DBManager::select_open_time(const QString table_name, const qint64 startTs, const qint64 endTs){
+
+    QVector<qint64> result;
+
+    QSqlDatabase db = get_connection();
+
+    // Bağlantı kontrolü
+    if (!db.isOpen()) {
+        qDebug() << "Connection not open!";
+        releaseConnection(db);
+        throw std::runtime_error("Database connection not open");
+    }
+
+    QSqlQuery query(db);
+
+    // Sorguyu hazırlama
+    if (!query.prepare(Queries::select_open_time.arg(table_name))) {
+        qDebug() << "Query preparation error: " << query.lastError().text();
+        releaseConnection(db);
+        throw std::runtime_error("Query preparation failed: " + query.lastError().text().toStdString());
+    }
+
+    query.bindValue(":startTs", startTs);
+    query.bindValue(":endTs",   endTs);
+
+    // Sorguyu çalıştırma
+    if (!query.exec()) {
+        qDebug() << "Query execution error: " << query.lastError().text();
+        releaseConnection(db);
+
+        throw DatabaseException(
+            "Couldn't execute query, \nquery text: " + query.lastQuery().toStdString() + "\n" +
+            "Error: " + query.lastError().text().toStdString() + "\n"
+        );
+    }
+
+    while ( query.next() ){
+        result.append(query.value(0).toLongLong());  //qlonglong ile qint64 aynı türdür
+    }
+
+    return result;
 
 }
 
@@ -298,7 +344,9 @@ QVariantList DBManager::execute_query_result(const QString &query_text, const QV
 
     // Sonuçları listeye ekleme
     while (query.next()) {
+
         QVariantMap row;
+
         for (int i = 0; i < query.record().count(); ++i) {
             row.insert(query.record().fieldName(i), query.value(i));
         }
