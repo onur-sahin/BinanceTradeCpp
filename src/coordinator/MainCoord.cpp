@@ -69,13 +69,12 @@ void MainCoord::connectViewModelToView(){
                                                            m_viewmodel->m_model->getTraintEndTs()
                                                           );
 
-            m_viewmodel->print_main_model_values();
+            // m_viewmodel->print_main_model_values();
 
 
 
         }
     );
-
 
 }
 

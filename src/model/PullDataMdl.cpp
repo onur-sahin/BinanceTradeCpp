@@ -26,47 +26,22 @@ void PullDataWorker::download_and_save(qint64 startTs, qint64 endTs){
 
     DBManager *db = DBManager::getInstance();
 
-    
+    data = fetchBinanceHistoricalData(  pair.toStdString(), interval.toStdString(), startTs, endTs);
 
-    pulledLastTimestamp = -1;
+    json parsed_json = json::parse(data);
 
-    deltaMs      = intervalToMs(interval);
-    _500deltaMs = deltaMs * 500;
+    // for (const auto &kline: parsed_json){
+    //     cout << kline[0] << " - " << QDateTime::fromMSecsSinceEpoch(kline[0], QTimeZone::utc()).toString().toStdString() << endl;
+    // }
 
-    qint64 tempStartTimestamp = startTs;
-    qint64 tempEndTimestamp = startTs + 500 * deltaMs;
-
-    while(pulledLastTimestamp != endTs){
-
-        if (tempEndTimestamp >= endTs){
-
-            tempEndTimestamp    = endTs;
-            pulledLastTimestamp = endTs;
-
-        } else {
-            pulledLastTimestamp = tempEndTimestamp;
-        }
-
-        data = fetchBinanceHistoricalData(  pair.toStdString(), interval.toStdString(),
-                                                tempStartTimestamp, tempEndTimestamp);
-
-        json parsed_json = json::parse(data);
-
-        // for (const auto &kline: parsed_json){
-        //     cout << kline[0] << " - " << QDateTime::fromMSecsSinceEpoch(kline[0], QTimeZone::utc()).toString().toStdString() << endl;
-        // }
-
-        db->insert_klines(table_name, parsed_json);
-
-        tempStartTimestamp = tempEndTimestamp + deltaMs;
-        tempEndTimestamp   = tempStartTimestamp + _500deltaMs;
-
-
-    }
+    db->insert_klines(table_name, parsed_json);
 
 }
 
 void PullDataWorker::pullData(){
+
+    deltaMs      = intervalToMs(interval);
+    _500deltaMs  = deltaMs * 500;
 
     if (startTs > endTs){
         emit finished();
@@ -83,7 +58,7 @@ void PullDataWorker::pullData(){
     // endTs'yi aşağı yuvarla
     endTs = (endTs / deltaMs) * deltaMs;
 
-    table_name = "tbl_" + pair + "_" + interval;
+    table_name = "tbl_" + pair.toLower() + "_" + interval;
 
     DBManager *db = DBManager::getInstance();
 
@@ -104,22 +79,40 @@ void PullDataWorker::pullData(){
 
         temp_ts += deltaMs;
     }
+    
+    qint64 temp_startTs;
 
-    qint64 temp_startTs = absent_ts.at(0);
-    qint64 temp_endTs   = temp_startTs;
+    if (not absent_ts.isEmpty()){
+        temp_startTs = absent_ts.at(0);
+    }
+
+    bool mark_start = false;
+
+    qint64 count = 0;
 
     for (qint64 &ts : absent_ts){
 
-        temp_ts = ts + deltaMs;
+        count++;
 
-        if ( absent_ts.contains(temp_ts) ){
-            temp_endTs = temp_ts;
+        if (mark_start){
+            temp_startTs = ts;
+            mark_start = false;
         }
 
-        
+        temp_ts = ts + deltaMs;
+
+        if (not absent_ts.contains(temp_ts) or count > 500){
+
+            pair_ts.append(QPair<qint64, qint64>(temp_startTs, ts));
+            mark_start = true;
+            count = 0;
+        }
+
     }   
     
-
+    for ( QPair<qint64, qint64> &pair : pair_ts){
+        download_and_save(pair.first, pair.second);
+    }
 
 
     emit finished();

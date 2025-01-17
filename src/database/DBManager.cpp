@@ -119,7 +119,7 @@ QSqlDatabase DBManager::get_connection() {
 
     QMutexLocker locker(&mutex_);
 
-    std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
+    // std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
     
     // Eğer connection pool boş değilse, son bağlantıyı al
     if (!connectionPool_.isEmpty()) {
@@ -165,7 +165,7 @@ void DBManager::releaseConnection(QSqlDatabase &db) {
     } else {
         qDebug() << "Attempted to release a closed database connection!";
     }
-    std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
+    // std::cout << "database Connection count: " << connectionPool_.count() << std::endl;
 }
 
 
