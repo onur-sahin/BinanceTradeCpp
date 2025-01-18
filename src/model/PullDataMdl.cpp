@@ -17,7 +17,7 @@ qint64 intervalToMs(QString &interval){
     if (interval[interval.length() - 1] == QChar('m')){
         return 5*60*1000;
     }
-    return 0; // Default return value if condition is not met
+    return 5*60*1000; // Default return value if condition is not met
 }
 
 void PullDataWorker::download_and_save(qint64 startTs, qint64 endTs){
@@ -79,7 +79,9 @@ void PullDataWorker::pullData(){
 
         temp_ts += deltaMs;
     }
-    
+
+    // emit set_start_value_progbar();
+
     qint64 temp_startTs;
 
     if (not absent_ts.isEmpty()){

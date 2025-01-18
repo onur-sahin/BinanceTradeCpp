@@ -5,6 +5,13 @@ class PullDataMdl;
 
 class PullDataVM : public QObject{
     Q_OBJECT
+
+
+public slots:
+
+    // void onProgbar
+
+
 public:
     PullDataVM(QObject *parent = nullptr);
 

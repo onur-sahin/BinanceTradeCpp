@@ -16,5 +16,6 @@ public:
 
 private:
     Ui::PullDataWidget *ui;
+
 };
 

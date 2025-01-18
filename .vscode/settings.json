@@ -95,5 +95,8 @@
         }
     ],
     "cmake.options.statusBarVisibility": "visible",
-    "cmake.buildDirectory": "${workspaceFolder}/builds/${buildKit}/${buildType}"
+    "cmake.buildDirectory": "${workspaceFolder}/builds/${buildKit}/${buildType}",
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+        "clang-diagnostic-error"
+    ]
 }
