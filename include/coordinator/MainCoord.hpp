@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QList>
 
 
 class MainVw;
@@ -26,6 +27,9 @@ public:
     }
 
     void connectViewModelToView();
+
+public slots:
+    void onPullDataCoordCloseWidget(PullDataCoord *pullDataCoord);
     
 private:
     MainVw    *m_view;
@@ -33,7 +37,7 @@ private:
 
     CreateModelCoord *m_createModelCoord;
 
-    std::vector<PullDataCoord*> m_pullDataCoords;
+    QList<PullDataCoord*> m_pullDataCoords;
 
 
 };

@@ -14,8 +14,9 @@ public:
     explicit PullDataWidget(QWidget *parent = nullptr);
     ~PullDataWidget();
 
-private:
-    Ui::PullDataWidget *ui;
+    void connectOkButton(std::function<void()> callback);
+    
+Ui::PullDataWidget *ui;
 
 };
 

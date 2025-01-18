@@ -17,6 +17,7 @@ MainCoord::MainCoord()
     
     connectViewModelToView();
     m_createModelCoord = new CreateModelCoord(this);
+
 }
 
 MainCoord::~MainCoord(){
@@ -33,7 +34,15 @@ void MainCoord::set_enabled(bool status){
     m_view->set_enabled(status);
 }
 
+void MainCoord::onPullDataCoordCloseWidget(PullDataCoord *pullDataCoord){
+    pullDataCoord->m_view->hide();
+    m_view->ui->vl_info_area->removeWidget(pullDataCoord->m_view);
+    m_pullDataCoords.removeOne(pullDataCoord);
+    delete pullDataCoord;
+}
+
 void MainCoord::connectViewModelToView(){
+    
     m_view->connectCreateModelButton(
 
         [this](){
@@ -53,9 +62,12 @@ void MainCoord::connectViewModelToView(){
                                                  m_view->ui->te_train_start->time(),
                                                  m_view->ui->de_train_end->date(),
                                                  m_view->ui->te_train_end->time()
-            );  
+            );
 
             PullDataCoord *pullDataCoord = new PullDataCoord(m_view);
+
+            QObject::connect(pullDataCoord, &PullDataCoord::closeWidget,
+                             this,          &MainCoord::onPullDataCoordCloseWidget);
 
             m_pullDataCoords.push_back(pullDataCoord);
 

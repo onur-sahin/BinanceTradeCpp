@@ -13,6 +13,9 @@ class PullDataWorker : public QObject {
 
 public:
 
+    int     maxValue=100;
+    int     value=0;
+
     QString pair     = "BTCUSDT";
     QString interval = "5m";
     qint64  startTs  = 0;
@@ -28,7 +31,8 @@ public:
 
 
 signals:
-    void updateProgress(int value);
+    void updateProgressBarMaxValue(int value);
+    void updateProgressBarValue(int value);
     void finished();
 
 public slots:
@@ -36,10 +40,14 @@ public slots:
 
 };
 
+///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
 class PullDataMdl : public QObject {
     Q_OBJECT
 
 public:
+
     
 
     PullDataMdl(QObject *parent = nullptr);
@@ -48,9 +56,21 @@ public:
     
 
 signals:
+
+    void maxValueChanged(int maxValue);
+    void valueChanged(int value);
     void dataFetched();  // Veri çekme işlemi tamamlandığında sinyal
+    void finished();
+
+public slots:
+    void setMaxValue(int maxValue);
+    void setValue(int value);
+    void onWorkerFinished();
 
 public:
+
+    int maxValue;
+    int value;
 
 
 private:

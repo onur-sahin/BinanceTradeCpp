@@ -80,13 +80,16 @@ void PullDataWorker::pullData(){
         temp_ts += deltaMs;
     }
 
-    // emit set_start_value_progbar();
-
     qint64 temp_startTs;
 
     if (not absent_ts.isEmpty()){
         temp_startTs = absent_ts.at(0);
+        emit updateProgressBarMaxValue(absent_ts.count());
+    } else {
+        emit updateProgressBarMaxValue(-1);
     }
+
+    
 
     bool mark_start = false;
 
@@ -114,6 +117,8 @@ void PullDataWorker::pullData(){
     
     for ( QPair<qint64, qint64> &pair : pair_ts){
         download_and_save(pair.first, pair.second);
+        value += (pair.second-pair.first)/deltaMs +1;
+        emit updateProgressBarValue( value );
     }
 
 
@@ -129,8 +134,32 @@ PullDataMdl::PullDataMdl(QObject *parent)
 
     worker->moveToThread(workerThread);
 
-    connect(workerThread, &QThread::started, worker, &PullDataWorker::pullData);
+    connect(workerThread, &QThread::started,
+            worker,       &PullDataWorker::pullData);
 
+    connect(worker,       &PullDataWorker::updateProgressBarMaxValue,
+            this,         &PullDataMdl::setMaxValue);
+
+    connect(worker,       &PullDataWorker::updateProgressBarValue,
+            this,         &PullDataMdl::setValue);
+
+    connect(worker,       &PullDataWorker::finished,
+            this,         &PullDataMdl::onWorkerFinished);
+
+}
+
+void PullDataMdl::setMaxValue(int maxValue){
+    if (this->maxValue != maxValue){
+        this->maxValue = maxValue;
+        emit maxValueChanged(maxValue);
+    }
+}
+
+void PullDataMdl::setValue(int value){
+    if (this->value != value){
+        this->value = value;
+        emit valueChanged(value);
+    }
 }
 
 
@@ -144,6 +173,10 @@ void PullDataMdl::start_pulling_data(QString pair, QString interval, qint64 star
     workerThread->start();
 
 
+}
+
+void PullDataMdl::onWorkerFinished(){
+    emit finished();
 }
 
 
