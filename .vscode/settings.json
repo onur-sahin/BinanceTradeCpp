@@ -91,7 +91,7 @@
             "name": "postgres",
             "database": "postgres",
             "username": "postgres",
-            "password": "7532+7532+"
+            "password": "222222222"
         }
     ],
     "cmake.options.statusBarVisibility": "visible",

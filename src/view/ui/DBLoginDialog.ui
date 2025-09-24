@@ -282,7 +282,7 @@ you need to install the postgresql database management program on your computer!
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>7532+7532+</string>
+      <string>2222222222</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
